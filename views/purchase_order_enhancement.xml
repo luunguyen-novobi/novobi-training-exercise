@@ -33,4 +33,29 @@
         <field name="state">code</field>
         <field name="code"></field>
     </record>
+
+    <record id="purchase_order_enhancement_search_view" model="ir.ui.view">
+        <field name="name">purchase.order.enhancement.search.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='starred']" position="after">
+                <filter name="is_archived" string="Is Archived" domain="[('active', '=', False)]"></filter>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_enhancement_tree_view" model="ir.ui.view">
+        <field name="name">purchase.order.enhancement.tree.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="active" invisible="1"></field>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-muted">active==False</attribute>
+            </xpath>
+        </field>
+    </record>
 </odoo>
