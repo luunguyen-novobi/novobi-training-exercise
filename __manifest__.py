@@ -8,6 +8,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'views/purchase_order_enhancement.xml',
     ],
     'installable': True,
     'application': True,
