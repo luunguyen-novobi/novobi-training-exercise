@@ -31,7 +31,11 @@
         <field name="binding_model_id" ref="model_purchase_order"></field>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
-        <field name="code"></field>
+        <field name="code">
+            if records:
+                for record in records:
+                    record.action_archive_purchase_orders()
+        </field>
     </record>
 
     <record id="purchase_order_enhancement_search_view" model="ir.ui.view">
