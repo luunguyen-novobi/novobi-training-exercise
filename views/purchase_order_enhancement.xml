@@ -13,14 +13,16 @@
                     type="object" 
                     name="action_archive_purchase_orders"
                     class="oe_stat_button"
-                    icon="fa-archive" />
+                    icon="fa-archive" 
+                    groups="purchase.group_purchase_manager" />
                 <button 
                     attrs="{'invisible': ['!', '&amp;', ('active', '=', False), '|', ('state', '=', 'done'), ('state', '=', 'cancel')]}" 
                     string="Unarchive"
                     type="object" 
                     name="action_unarchive_purchase_orders"
                     class="oe_stat_button"
-                    icon="fa-archive" />
+                    icon="fa-archive" 
+                    groups="purchase.group_purchase_manager" />
             </xpath>
             <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
                 <page string="Cron Information" name="cron_info">

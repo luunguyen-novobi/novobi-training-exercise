@@ -25,5 +25,6 @@
     <menuitem 
         action="action_wizard_archive_purchase_orders"
         id="menu_archive_purchase_orders"
-        parent="purchase.menu_purchase_config" />
+        parent="purchase.menu_purchase_config" 
+        groups="purchase.group_purchase_manager" />
 </odoo>
