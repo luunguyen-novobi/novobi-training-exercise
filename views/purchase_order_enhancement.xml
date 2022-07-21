@@ -29,6 +29,9 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="usphone" widget="usphone_format"></field>
+            </xpath>
         </field>
     </record>
 

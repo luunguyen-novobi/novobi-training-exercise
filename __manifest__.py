@@ -14,6 +14,11 @@
         'views/purchase_order_enhancement.xml',
         'wizard/purchase_order_archives_view.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'purchase_order_enhancement/static/src/js/us_phone.js',
+        ],
+    },
     'installable': True,
     'application': True,
     'auto_install': False

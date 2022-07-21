@@ -7,6 +7,7 @@ class PurchaseOrder(models.Model):
 
     active = fields.Boolean(default=True)
     lifespan = fields.Integer(default=0)
+    usphone = fields.Char(string="Phone (US Format)")
 
     def action_archive_purchase_orders(self):
         for record in self:
