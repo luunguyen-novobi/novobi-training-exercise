@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_archive_purchase_orders" model="ir.ui.view">
+        <field name="name">wizard.archive.purchase.orders</field>
+        <field name="model">purchase.order.archives.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Archive multiple purchase orders">
+                <sheet>
+                    <field name="purchase_orders_ids"></field>
+                </sheet>
+                <footer>
+                    <button name="action_archive" string="Archive" type="object"></button>
+                    <button string="Cancel" special="cancel"></button>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_wizard_archive_purchase_orders" model="ir.actions.act_window">
+        <field name="name">Archive Purchase Orders</field>
+        <field name="res_model">purchase.order.archives.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="wizard_archive_purchase_orders"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem 
+        action="action_wizard_archive_purchase_orders"
+        id="menu_archive_purchase_orders"
+        parent="purchase.menu_purchase_config" />
+</odoo>

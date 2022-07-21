@@ -9,6 +9,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/purchase_order_enhancement.xml',
+        'wizard/purchase_order_archives_view.xml',
     ],
     'installable': True,
     'application': True,
