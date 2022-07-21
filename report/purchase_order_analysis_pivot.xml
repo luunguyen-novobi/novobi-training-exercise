@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="report_purchase_order_enhancement_pivot" model="ir.ui.view">
+        <field name="name">report.purchase.order.enhancement.pivot</field>
+        <field name="model">purchase.report</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_search"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@expand=1]" position="inside">
+                <filter string="Payment term" name="payment_term_id" context="{'group_by':'payment_term_id'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
