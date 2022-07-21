@@ -1,10 +1,15 @@
-from odoo import models, fields
+from datetime import datetime, timedelta
+from odoo import models, fields, api
 from odoo.exceptions import UserError
+
+import logging
+_logger = logging.getLogger(__name__) 
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     active = fields.Boolean(default=True)
+    lifespan = fields.Integer(default=0)
 
     def action_archive_purchase_orders(self):
         for record in self:
@@ -19,4 +24,7 @@ class PurchaseOrder(models.Model):
                 record.active = True
             else:
                 raise UserError('Only allow unarchive the locked or canceled purchase orders')
-                
+
+    @api.model
+    def _cron_archive_po(self):
+        self.search([('state', 'in', ('done', 'cancel'))]).filtered(lambda record: datetime.now() > record.write_date + timedelta(record.lifespan)).action_archive_purchase_orders()
