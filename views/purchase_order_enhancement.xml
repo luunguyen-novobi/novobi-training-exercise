@@ -33,8 +33,19 @@
         <field name="state">code</field>
         <field name="code">
             if records:
-                for record in records:
-                    record.action_archive_purchase_orders()
+                records.action_archive_purchase_orders()
+        </field>
+    </record>
+
+    <record id="action_unarchive_purchase_orders" model="ir.actions.server">
+        <field name="name">Unarchive Purchase Orders</field>
+        <field name="model_id" ref="model_purchase_order"></field>
+        <field name="binding_model_id" ref="model_purchase_order"></field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.action_unarchive_purchase_orders()
         </field>
     </record>
 
