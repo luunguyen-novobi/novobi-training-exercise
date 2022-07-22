@@ -12,6 +12,7 @@
         'report/purchase_order_analysis_pivot.xml',
         'security/ir.model.access.csv',
         'views/purchase_order_enhancement.xml',
+        'views/purchase_order_enhancement_settings.xml',
         'wizard/purchase_order_archives_view.xml',
     ],
     'assets': {
