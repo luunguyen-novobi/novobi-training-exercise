@@ -17,5 +17,6 @@ class PurchaseOrderEnhancementRoute(http.Controller):
                 result['code'] = 200
                 result['message'] = 'Successful'
                 return result
-            except:
+            except Exception as e:
+                result['message'] = str(e)
                 return result
