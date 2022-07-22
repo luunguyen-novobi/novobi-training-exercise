@@ -74,7 +74,7 @@
                 <field name="active" invisible="1"></field>
             </xpath>
             <xpath expr="//tree" position="attributes">
-                <attribute name="decoration-muted">active==False</attribute>
+                <attribute name="decoration-muted">state == 'cancel' or not active </attribute>
             </xpath>
         </field>
     </record>
