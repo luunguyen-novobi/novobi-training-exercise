@@ -8,8 +8,8 @@ class PurchaseOrder(models.Model):
     active = fields.Boolean(default=True)
     usphone = fields.Char(string="Phone (US Format)")
 
-    def action_archive_purchase_orders(self):
-        if not self.env.user.has_group('purchase.group_purchase_manager'):
+    def action_archive_purchase_orders(self, from_api=False):
+        if not from_api and not self.env.user.has_group('purchase.group_purchase_manager'):
             raise AccessError('You don\'t have the access rights')
 
         not_archive_orders = self.filtered(lambda record: record.state not in ('done', 'cancel'))
@@ -17,7 +17,7 @@ class PurchaseOrder(models.Model):
             raise UserError('Only allow archive the locked or canceled purchase orders')
         for record in self:
             record.active = False
-        
+
     def action_unarchive_purchase_orders(self):
         for record in self:
             record.active = True

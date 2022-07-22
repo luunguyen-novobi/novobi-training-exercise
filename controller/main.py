@@ -12,7 +12,7 @@ class PurchaseOrderEnhancementRoute(http.Controller):
         else:
             purchase_orders = request.env['purchase.order'].sudo().browse(purchase_order_ids)
             try:
-                purchase_orders.action_archive_purchase_orders()
+                purchase_orders.action_archive_purchase_orders(from_api=True)
                 result['archived_orders'] = purchase_order_ids
                 result['code'] = 200
                 result['message'] = 'Successful'
