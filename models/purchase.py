@@ -2,6 +2,9 @@ from datetime import datetime, timedelta
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 
+import logging
+_logger = logging.getLogger(__name__)
+
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
@@ -24,4 +27,6 @@ class PurchaseOrder(models.Model):
 
     @api.model
     def _cron_archive_po(self):
-        self.search([('state', 'in', ('done', 'cancel'))]).filtered(lambda record: datetime.now() > record.write_date + timedelta(record.lifespan)).action_archive_purchase_orders()
+        lifespan = self.env['ir.config_parameter'].get_param('purchase.order.enhancement.settings.lifespan')
+        archive_date = datetime.now() - timedelta(days=int(lifespan))
+        self.search(['&', ('write_date', '<', archive_date), ('state', 'in', ('done', 'cancel'))]).action_archive_purchase_orders()
