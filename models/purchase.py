@@ -17,10 +17,7 @@ class PurchaseOrder(models.Model):
     
     def action_unarchive_purchase_orders(self):
         for record in self:
-            if record.state == 'done' or record.state == 'cancel':
-                record.active = True
-            else:
-                raise UserError('Only allow unarchive the locked or canceled purchase orders')
+            record.active = False
 
     @api.model
     def _cron_archive_po(self):
