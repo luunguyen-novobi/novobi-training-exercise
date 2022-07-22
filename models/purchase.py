@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 from odoo import models, fields, api
-from odoo.exceptions import UserError
+from odoo.exceptions import AccessError, UserError
 
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
@@ -9,15 +9,18 @@ class PurchaseOrder(models.Model):
     usphone = fields.Char(string="Phone (US Format)")
 
     def action_archive_purchase_orders(self):
-        for record in self:
-            if record.state == 'done' or record.state == 'cancel':
-                record.active = False
-            else:
-                raise UserError('Only allow archive the locked or canceled purchase orders')
-    
-    def action_unarchive_purchase_orders(self):
+        if not self.env.user.has_group('purchase.group_purchase_manager'):
+            raise AccessError('You don\'t have the access rights')
+
+        not_archive_orders = self.filtered(lambda record: record.state not in ('done', 'cancel'))
+        if len(not_archive_orders) > 0:
+            raise UserError('Only allow archive the locked or canceled purchase orders')
         for record in self:
             record.active = False
+        
+    def action_unarchive_purchase_orders(self):
+        for record in self:
+            record.active = True
 
     @api.model
     def _cron_archive_po(self):
