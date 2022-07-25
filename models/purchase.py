@@ -15,12 +15,11 @@ class PurchaseOrder(models.Model):
         not_archive_orders = self.filtered(lambda record: record.state not in ('done', 'cancel'))
         if len(not_archive_orders) > 0:
             raise UserError('Only allow archive the locked or canceled purchase orders')
-        for record in self:
-            record.active = False
+
+        self.write({'active': False})
 
     def action_unarchive_purchase_orders(self):
-        for record in self:
-            record.active = True
+        self.write({'active': True})
 
     @api.model
     def _cron_archive_po(self):
