@@ -8,7 +8,7 @@
             <xpath expr="//div[@name='button_box']" position="inside">
                 <field name="active" invisible="1"/>
                 <button 
-                    attrs="{'invisible': ['!', '&amp;', ('active', '=', True), '|', ('state', '=', 'done'), ('state', '=', 'cancel')]}" 
+                    attrs="{'invisible': ['!', '&amp;', ('active', '=', True), ('state', 'in', ('done', 'cancel'))]}" 
                     string="Archive"
                     type="object" 
                     name="action_archive_purchase_orders"
@@ -16,7 +16,7 @@
                     icon="fa-archive" 
                     groups="purchase.group_purchase_manager" />
                 <button 
-                    attrs="{'invisible': ['!', '&amp;', ('active', '=', False), '|', ('state', '=', 'done'), ('state', '=', 'cancel')]}" 
+                    attrs="{'invisible': ['!', '&amp;', ('active', '=', False), ('state', 'in', ('done', 'cancel'))]}" 
                     string="Unarchive"
                     type="object" 
                     name="action_unarchive_purchase_orders"
