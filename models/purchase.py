@@ -6,7 +6,15 @@ class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
     active = fields.Boolean(default=True)
-    usphone = fields.Char(string="Phone (US Format)")
+    partner_phone = fields.Char(string="Vendor Phone", store=False, compute='_compute_partner_phone', inverse='_inverse_partner_phone')
+
+    def _compute_partner_phone(self):
+        for record in self:
+            record.partner_phone = record.partner_id.phone
+
+    def _inverse_partner_phone(self):
+        for record in self:
+            record.partner_id.phone = record.partner_phone
 
     def action_archive_purchase_orders(self, from_api=False):
         if not from_api and not self.env.user.has_group('purchase.group_purchase_manager'):
