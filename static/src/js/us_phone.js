@@ -4,7 +4,7 @@ odoo.define('purchase_order_enhancement.usphone_format', function (require) {
 var FieldChar = require('web.basic_fields').FieldChar;
 
 var UsPhoneFormat = FieldChar.extend({
-    normalize: function(phone) {
+    convertPhoneToUSFormat: function(phone) {
         phone = phone.replace(/[^\d]/g, "");
         if (phone.length == 10) {
             return phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
@@ -13,13 +13,13 @@ var UsPhoneFormat = FieldChar.extend({
     },
 
     events: _.extend({}, FieldChar.prototype.events, {
-        'keyup': '_onKeyUp'
+        'change': '_onChange'
     }),
 
-    _onKeyUp: function(e) {
+    _onChange: function(e) {
         var self = this;
         e.preventDefault();
-        e.target.value = self.normalize(e.target.value);
+        e.target.value = self.convertPhoneToUSFormat(e.target.value);
     }
 });
 
