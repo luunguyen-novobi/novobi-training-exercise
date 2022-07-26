@@ -28,7 +28,7 @@ Technical Requirements
 - Form:
     + Adding smart button allows archive Purchase Orders.
 - Tree:
-    + Adding a action under **Actions** to allow to archive Purchase Orders.
+    + Adding an action under **Actions** to allow to archive Purchase Orders.
     + Archived orders must be showed in the gray color.
 - Search:
     + Add filter for field **active**.

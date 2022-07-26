@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="purchase_order_enhancement_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.enhancement.form.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="active" invisible="1"/>
+                <button 
+                    attrs="{'invisible': ['!', '&amp;', ('active', '=', True), ('state', 'in', ('done', 'cancel'))]}" 
+                    string="Archive"
+                    type="object" 
+                    name="action_archive_purchase_orders"
+                    class="oe_stat_button"
+                    icon="fa-archive" 
+                    groups="purchase.group_purchase_manager" />
+                <button 
+                    attrs="{'invisible': ['!', '&amp;', ('active', '=', False), ('state', 'in', ('done', 'cancel'))]}" 
+                    string="Unarchive"
+                    type="object" 
+                    name="action_unarchive_purchase_orders"
+                    class="oe_stat_button"
+                    icon="fa-archive" 
+                    groups="purchase.group_purchase_manager" />
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="partner_phone" widget="usphone_format"></field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_archive_purchase_orders" model="ir.actions.server">
+        <field name="name">Archive Purchase Orders</field>
+        <field name="model_id" ref="model_purchase_order"></field>
+        <field name="binding_model_id" ref="model_purchase_order"></field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.action_archive_purchase_orders()
+        </field>
+    </record>
+
+    <record id="action_unarchive_purchase_orders" model="ir.actions.server">
+        <field name="name">Unarchive Purchase Orders</field>
+        <field name="model_id" ref="model_purchase_order"></field>
+        <field name="binding_model_id" ref="model_purchase_order"></field>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                records.action_unarchive_purchase_orders()
+        </field>
+    </record>
+
+    <record id="purchase_order_enhancement_search_view" model="ir.ui.view">
+        <field name="name">purchase.order.enhancement.search.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_search"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='starred']" position="after">
+                <filter name="is_archived" string="Is Archived" domain="[('active', '=', False)]"></filter>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_enhancement_tree_view" model="ir.ui.view">
+        <field name="name">purchase.order.enhancement.tree.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="active" invisible="1"></field>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-muted">state == 'cancel' or not active </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
